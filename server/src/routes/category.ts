@@ -5,9 +5,9 @@ import {resultNotFound} from "../middlewares";
 const router = Router()
 
 router.get('/',categoryControl.getCategories);
-router.get('/:category_id', resultNotFound.categoriesResultNotFound, categoryControl.getCategory)
+router.get('/:category_id', categoryControl.getCategory)
 router.post('/', categoryControl.createCategory)
-router.delete('/:category_id', resultNotFound.categoriesResultNotFound, categoryControl.deleteCategory)
-router.put('/:category_id', resultNotFound.categoriesResultNotFound, categoryControl.udpateCategory)
+router.delete('/:category_id',categoryControl.deleteCategory)
+router.put('/:category_id', categoryControl.udpateCategory)
 
 export default router;

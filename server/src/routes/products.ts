@@ -5,6 +5,6 @@ import { resultNotFound} from "../middlewares";
 const router = Router();
 
 router.route('/').get(productsControl.getProducts).post(productsControl.createProduct)
-router.route('/:product_id').get(resultNotFound.productsResultNotFound, productsControl.getProduct).delete(resultNotFound.productsResultNotFound, productsControl.deleteProduct).put(resultNotFound.productsResultNotFound, productsControl.updateProduct)
+router.route('/:product_id').get(productsControl.getProduct).delete(productsControl.deleteProduct).put(productsControl.updateProduct)
 
 export default router;

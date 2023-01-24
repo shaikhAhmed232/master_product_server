@@ -23,7 +23,7 @@ export let QueryBuilder = {
         save: (table:string, data:object):string => {
             let selections = Object.keys(data).map((each:string) => each).join(",")
             let values = Object.values(data).map((value:string,idx:number) => `$${idx + 1}`).join(",")
-            let query = `INSERT INTO ${table} (${selections}) VALUES(${values}) ${table==='products' ? 'RETURNING products.product_id' : ''} `
+            let query = `INSERT INTO ${table} (${selections}) VALUES(${values}) RETURNING ${selections} `
             return query
         },
         filter: (table:string, options?: {columns?:string[], where?: object}):string => {
@@ -44,7 +44,7 @@ export let QueryBuilder = {
             columnKeys.forEach((key:string, indx:number) => {
                 columnsToUpdate  += `${key} = ${columnValues[indx]}${indx == columnValues.length - 1 ? '' : ', '}`
             })
-            let query = `UPDATE ${table} SET ${columnsToUpdate} WHERE ${conditions}`
+            let query = `UPDATE ${table} SET ${columnsToUpdate} WHERE ${conditions} RETURNING ${columnKeys.join(',')}`
             return query;
         },
         innerJoin: (tabel:string, pivot:string, pk:string, fk:string, selection?: string[], where?:object) =>{
